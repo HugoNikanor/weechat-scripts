@@ -1,19 +1,17 @@
 (weechat:register
   "Emote_displayer"
   "Hugo Hörnquist"
-  "1.1"
+  "1.2"
   "GPL3"
   "Adds /emote command"
   ""
   "")
 
 (define emotes
-  '(("shrug" .  "¯\\_(ツ)_/¯")
-    ("lenny" . "(͡° ͜ʖ ͡°)")
-    ("table-flip" . "(╯°□°）╯︵ ┻━┻")
-    ("table-return" .  "┬──┬ ノ( ゜-゜ノ)")
-    ("deal" . "•_•)\n( •_•)>⌐■-■\n(⌐■_■)")
-    ("donger" . "ヽ༼ຈل͜ຈ༽ﾉ")))
+  (with-input-from-file
+    (string-append (getenv "HOME")
+                   "/.weechat/guile/data/emotes")
+    (lambda () (read))))
 
 (define (emote_displayer data buffer command)
   (let* ((arg (cadr (string-split command #\space))))
