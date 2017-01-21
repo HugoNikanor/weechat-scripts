@@ -1,7 +1,7 @@
 (weechat:register
   "Emote_displayer"
   "Hugo Hörnquist"
-  "1.0"
+  "1.1"
   "GPL3"
   "Adds /emote command"
   ""
@@ -19,7 +19,7 @@
   (let* ((arg (cadr (string-split command #\space))))
     (if (string= arg "help")
       (for-each (lambda (emote)
-                  (weechat:print "" (format #f "~s: ~s"
+                  (weechat:print "" (format #f "~a : ~a"
                                             (car emote)
                                             (cdr emote))))
                 emotes)
