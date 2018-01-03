@@ -3,7 +3,7 @@
 !#
 
 (weechat:register
-  "Symbol replacer"
+  "Symbol_Replacer"
   "Hugo Hörnquist"
   "0.1"
   "GPL3"
@@ -25,6 +25,9 @@
  | Hugo Hörnquist 2018-01-02
  |#
 
+(use-modules (srfi srfi-1))
+
+#|
 (use-modules (ice-9 unicode)
              (ice-9 streams)
              (ice-9 rdelim))
@@ -52,13 +55,18 @@
       (string-concatenate (cdr args))
       (lambda ()
         (disprepl)))))
+|#
 
-(define (replace-special data modifier modifier_data string)
-  (with-output-to-string
-    (lambda ()
-      (display data) (newline)
-      (display modifier) (newline)
-      (display modifier_data) (newline)
-      (display string) (newline))))
+(define (process str)
+  (string-append str "..."))
+
+(define (replace_special data modifier modifier_data string)
+  (let* ((lst (string-split string #\:))
+         (header (drop-right lst 1))
+         (str (last lst)))
+    (string-join (append header (list (process str)))
+                 ":")))
+
 
 (weechat:hook_modifier "irc_in_privmsg" "replace_special" "")
+
