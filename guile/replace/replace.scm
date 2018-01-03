@@ -57,8 +57,10 @@
         (disprepl)))))
 |#
 
-(define (process str)
-  (string-append str "..."))
+;;(define (process str)
+;;  (string-append str "..."))
+
+(define (process str) str)
 
 (define (replace_special data modifier modifier_data string)
   (let* ((lst (string-split string #\:))
